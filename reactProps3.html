@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/prop-types@15.8.1/prop-types.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.11/babel.min.js"
+    integrity="sha512-IApuVfIDFro2vyERRyRgOa2TruCtteN5T2m6KOJvjQuteZ5HWMoUXeReD/qAaM1UN2oJRZn+12ZK3P3uykRF8Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/babel">
+
+    const $root = document.querySelector('#root');
+    const MyBtn = ({ title, click, alertMsg, fontSize=10, backgroundColor }) => {
+        return (
+            <button
+                onClick={click}
+                alert_msg={alertMsg}
+                style={{
+                    backgroundColor,
+                    color: 'white',
+                    padding: '10px 20px',
+                    border: 0,
+                    borderRadius: 10,
+                    fontSize
+                }}
+            >
+                {title}
+            </button>
+        )
+    }
+
+    MyBtn.propTypes = {
+        title: PropTypes.string.isRequired,
+        // isRequired: 필요한 속성이 없으면 에러 터트려 줌
+        click: PropTypes.func,
+        alertMsg: PropTypes.string.isRequired,
+        backgroundColor: PropTypes.string.isRequired,
+        fontSize: PropTypes.number
+    }
+
+    const cEvent = e => {
+        const alertMsg = e.target.getAttribute('alert_msg');
+        alert(alertMsg);
+    }
+
+    function App() {
+        return (
+            <div>
+                <h1 className="dd">Props-3</h1>
+                <MyBtn title="Save"
+                    click={cEvent}
+                    backgroundColor="green"
+                    fontSize={20}
+                    alertMsg="저장했습니다."
+                />
+                <MyBtn title="Cancel"
+                    click={cEvent}
+                    backgroundColor="black"
+                    alertMsg="취소했습니다."
+                />
+            </div>
+        )
+    }
+
+    ReactDOM.createRoot($root).render(<App />);
+
+</script>
+
+</html>
